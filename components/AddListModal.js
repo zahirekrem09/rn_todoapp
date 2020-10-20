@@ -21,14 +21,14 @@ const AddListModal = (props) => {
   ];
   const [name, setName] = React.useState("");
   const [color, setColor] = React.useState(background[0]);
-  const [displayList, setDisplayList] = React.useState(tempData);
+  //   const [displayList, setDisplayList] = React.useState(tempData);
   const handelCreateTodo = () => {
     const newTodoList = {
       name: name,
       color: color,
-      todos: [],
     };
-    setDisplayList([newTodoList, ...displayList]);
+    // tempData.push(newTodoList);
+    props.addList(newTodoList);
     setName("");
     props.closeModal();
   };
