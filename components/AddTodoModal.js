@@ -30,10 +30,20 @@ const AddTodoModal = (props) => {
   };
   const handelAddTodo = () => {
     let list = props.list;
-    list.todos.push({ title: newTodo, isDone: false });
-    props.updateList(list);
+    if (!list.todos.some((todo) => todo.title === newTodo)) {
+      list.todos.push({ title: newTodo, isDone: false });
+      props.updateList(list);
+    } else {
+      alert("this todo is on your list");
+    }
+
     setNewTodo("");
-    Keyboard.dismiss();
+    // Keyboard.dismiss();
+  };
+  const deleteTodo = (index) => {
+    let list = props.list;
+    list.todos.splice(index, 1);
+    props.updateList(list);
   };
   const renderTodo = (todo, index) => {
     return (
@@ -45,22 +55,31 @@ const AddTodoModal = (props) => {
                 ? "checkbox-multiple-marked"
                 : "checkbox-multiple-blank-outline"
             }
-            size={24}
-            color="#a4a4a4"
+            size={30}
+            color={list.color}
           />
         </TouchableOpacity>
+        <View style={[styles.todoView, { backgroundColor: list.color }]}>
+          <Text
+            style={[
+              styles.todo,
+              {
+                textDecorationLine: todo.isDone ? "line-through" : "none",
+                color: todo.isDone ? "#a4a4a4" : "#fff",
+              },
+            ]}
+          >
+            {todo.title}
+          </Text>
+        </View>
 
-        <Text
-          style={[
-            styles.todo,
-            {
-              textDecorationLine: todo.isDone ? "line-through" : "none",
-              color: todo.isDone ? "#a4a4a4" : "#2d3436",
-            },
-          ]}
-        >
-          {todo.title}
-        </Text>
+        <TouchableOpacity onPress={() => deleteTodo(index)}>
+          <MaterialCommunityIcons
+            name="delete-outline"
+            size={30}
+            color={list.color}
+          />
+        </TouchableOpacity>
       </View>
     );
   };
@@ -68,12 +87,15 @@ const AddTodoModal = (props) => {
     <View style={styles.container}>
       <TouchableOpacity
         onPress={props.closeModal}
-        style={{
-          position: "absolute",
-          top: 10,
-          right: 10,
-          backgroundColor: "#24a6d9",
-        }}
+        style={[
+          {
+            position: "absolute",
+            top: 10,
+            right: 10,
+            zIndex: 1000,
+          },
+          { backgroundColor: list.color },
+        ]}
       >
         <MaterialCommunityIcons name="close" size={32} color="#fff" />
       </TouchableOpacity>
@@ -85,7 +107,7 @@ const AddTodoModal = (props) => {
         ]}
       >
         <View>
-          <Text style={styles.title}>{list.name}</Text>
+          <Text style={[styles.title, { color: list.color }]}>{list.name}</Text>
           <Text style={styles.taskCount}>
             {completedCount} of {taskCount} taks
           </Text>
@@ -95,7 +117,7 @@ const AddTodoModal = (props) => {
         <FlatList
           data={list.todos}
           renderItem={({ item, index }) => renderTodo(item, index)}
-          keyExtractor={(item) => item.title}
+          keyExtractor={(_, index) => index.toString()}
           contentContainerStyle={{ paddingHorizontal: 30, paddingVertical: 64 }}
           showsVerticalScrollIndicator={false}
         />
@@ -180,11 +202,19 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
   },
   todo: {
     fontWeight: "700",
     fontSize: 16,
-    marginLeft: 8,
-    color: "#2d3436",
+    marginLeft: 12,
+    color: "#fff",
+  },
+  todoView: {
+    backgroundColor: "red",
+    flex: 1,
+    marginHorizontal: 20,
+    paddingVertical: 12,
+    borderRadius: 10,
   },
 });

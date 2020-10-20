@@ -50,7 +50,7 @@ const AddListModal = (props) => {
           position: "absolute",
           top: 10,
           right: 10,
-          backgroundColor: "#24a6d9",
+          backgroundColor: color,
         }}
         onPress={props.closeModal}
       >

@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -13,14 +13,29 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import tempData from "./tempData";
 import TodoList from "./components/TodoList";
 import AddListModal from "./components/AddListModal";
+import Firebase from "./server/firebase";
 
 export default function App() {
   const [addTodoVisible, setAdTodoVisible] = React.useState(false);
+  // const [user, SetUser] = React.useState({});
   const [lists, setLists] = React.useState(tempData);
+  // const [lists, setLists] = React.useState([]);
+
+  // useEffect(() => {
+  //   firebase = new Firebase((error, user) => {
+  //     if (error) {
+  //       return alert("uh oh , something went wrong");
+  //     }
+  //     firebase.getLists((lists) => {
+  //       setLists([{ ...lists }]);
+  //     });
+  //     SetUser({ user });
+  //   });
+  // }, []);
+
   const handleOpenModal = () => {
     setAdTodoVisible((addTodoVisible) => !addTodoVisible);
   };
-
   const addList = (list) => {
     setLists([{ ...list, id: lists.length + 1, todos: [] }, ...lists]);
   };
@@ -62,7 +77,7 @@ export default function App() {
       <View style={{ height: 275, paddingLeft: 32 }}>
         <FlatList
           data={lists}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.id.toString()}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
           renderItem={({ item }) => renderList(item)}
