@@ -9,6 +9,7 @@ import {
   Keyboard,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import moment from "moment";
 
 const AddTodoModal = (props) => {
   // const [todoData, setTodoData] = React.useState({
@@ -46,6 +47,7 @@ const AddTodoModal = (props) => {
     props.updateList(list);
   };
   const renderTodo = (todo, index) => {
+    const time = moment(Date() || moment.now()).fromNow();
     return (
       <View style={styles.todoContainer}>
         <TouchableOpacity onPress={() => toogleTodoCompleted(index)}>
@@ -71,6 +73,7 @@ const AddTodoModal = (props) => {
           >
             {todo.title}
           </Text>
+          <Text style={styles.time}>{time}</Text>
         </View>
 
         <TouchableOpacity onPress={() => deleteTodo(index)}>
@@ -83,6 +86,7 @@ const AddTodoModal = (props) => {
       </View>
     );
   };
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -216,5 +220,12 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     paddingVertical: 12,
     borderRadius: 10,
+  },
+  time: {
+    fontWeight: "300",
+    fontSize: 12,
+    marginLeft: 12,
+    marginTop: 8,
+    color: "#fff",
   },
 });

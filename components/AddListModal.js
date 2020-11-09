@@ -11,13 +11,14 @@ import tempData from "../tempData";
 
 const AddListModal = (props) => {
   const background = [
-    "#5cd859",
-    "#24a6d9",
+    "#2a9d8f",
+    "#8ecae6",
     "#595bd9",
     "#8022d9",
-    "#d159d8",
+    "#ffe066",
     "#d85963",
-    "#d88559",
+    "#f4a261",
+    "#864c8d",
   ];
   const [name, setName] = React.useState("");
   const [color, setColor] = React.useState(background[0]);
@@ -32,6 +33,7 @@ const AddListModal = (props) => {
     setName("");
     props.closeModal();
   };
+
   const renderColors = () => {
     return background.map((clr) => {
       return (

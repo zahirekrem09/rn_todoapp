@@ -61,7 +61,7 @@ export default function App() {
       <View style={{ flexDirection: "row" }}>
         <View style={styles.divider} />
         <Text style={styles.title}>
-          Todo <Text style={{ fontWeight: "300", color: "#24a6d9" }}>App</Text>
+          Todo <Text style={{ fontWeight: "300", color: "#864c8d" }}>App</Text>
         </Text>
         <View style={styles.divider} />
       </View>
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   divider: {
-    backgroundColor: "#a7cbd9",
+    backgroundColor: "#864c8d",
     height: 1,
     flex: 1,
     alignSelf: "center",
@@ -110,16 +110,16 @@ const styles = StyleSheet.create({
   },
   addButton: {
     borderWidth: 2,
-    borderColor: "#a7cbd9",
+    borderColor: "#624466",
     borderRadius: 5,
     padding: 12,
     alignItems: "center",
     alignSelf: "center",
     justifyContent: "center",
-    backgroundColor: "#24a6d9",
+    backgroundColor: "#864c8d",
   },
   addButtonText: {
-    color: "#24a6d9",
+    color: "#864c8d",
     fontWeight: "600",
     fontSize: 16,
     marginTop: 8,
